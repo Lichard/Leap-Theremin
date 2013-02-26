@@ -29,8 +29,9 @@ class SampleListener extends Listener {
 			clip.open(audioInputStream);
 			gainControl = (FloatControl) clip
 					.getControl(FloatControl.Type.MASTER_GAIN);
-			System.out.println(gainControl.getMaximum() + "   " + gainControl.getMinimum());
-						
+			System.out.println(gainControl.getMaximum() + "   "
+					+ gainControl.getMinimum());
+
 			clip.start();
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
@@ -54,14 +55,21 @@ class SampleListener extends Listener {
 		Frame frame = controller.frame();
 		float h;
 		if (!frame.hands().empty()) {
-			// Get the first hand
 			Hand hand = frame.hands().get(0);
-			System.out.println(hand.palmPosition().getY());
-			h=(hand.palmPosition().getY()-30)/500;
-			h=(float) Math.min(Math.max(h, 0),1.0);
-			h=(1-h)*(gainControl.getMinimum());
-			
-			gainControl.setValue(h);
+			FingerList fingers = hand.fingers();
+			if (!fingers.empty()) {
+				// Calculate the hand's average finger tip position
+				Vector avgPos = Vector.zero();
+				for (Finger finger : fingers) {
+					avgPos = avgPos.plus(finger.tipPosition());
+				}
+				h = avgPos.divide(fingers.count()).getY();
+				h = (h-50)/500;
+				h = (float) Math.min(Math.max(h, 0), 1);
+				h = (float) (30*Math.log10(h));
+				gainControl.setValue(h);
+				System.out.println(hand.palmPosition().getY() + "   " + h);
+			}
 		}
 	}
 }

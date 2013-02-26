@@ -35,12 +35,13 @@ class SampleListener extends Listener {
     public void onFrame(Controller controller) {
         // Get the most recent frame and report some basic information
         Frame frame = controller.frame();
-        System.out.println("Frame id: " + frame.id()
+        /*System.out.println("Frame id: " + frame.id()
                          + ", timestamp: " + frame.timestamp()
                          + ", hands: " + frame.hands().count()
                          + ", fingers: " + frame.fingers().count()
                          + ", tools: " + frame.tools().count()
                          + ", gestures " + frame.gestures().count());
+        */
 
         if (!frame.hands().empty()) {
             // Get the first hand
@@ -55,22 +56,22 @@ class SampleListener extends Listener {
                     avgPos = avgPos.plus(finger.tipPosition());
                 }
                 avgPos = avgPos.divide(fingers.count());
-                System.out.println("Hand has " + fingers.count()
-                                 + " fingers, average finger tip position: " + avgPos);
+                //System.out.println("Hand has " + fingers.count()
+                //                 + " fingers, average finger tip position: " + avgPos);
             }
 
             // Get the hand's sphere radius and palm position
-            System.out.println("Hand sphere radius: " + hand.sphereRadius()
-                             + " mm, palm position: " + hand.palmPosition());
+            //System.out.println("Hand sphere radius: " + hand.sphereRadius()
+            //                 + " mm, palm position: " + hand.palmPosition());
 
             // Get the hand's normal vector and direction
             Vector normal = hand.palmNormal();
             Vector direction = hand.direction();
 
             // Calculate the hand's pitch, roll, and yaw angles
-            System.out.println("Hand pitch: " + Math.toDegrees(direction.pitch()) + " degrees, "
-                             + "roll: " + Math.toDegrees(normal.roll()) + " degrees, "
-                             + "yaw: " + Math.toDegrees(direction.yaw()) + " degrees");
+            //System.out.println("Hand pitch: " + Math.toDegrees(direction.pitch()) + " degrees, "
+            //                 + "roll: " + Math.toDegrees(normal.roll()) + " degrees, "
+            //                 + "yaw: " + Math.toDegrees(direction.yaw()) + " degrees");
         }
 
         GestureList gestures = frame.gestures();
@@ -133,7 +134,7 @@ class SampleListener extends Listener {
         }
 
         if (!frame.hands().empty() || !gestures.empty()) {
-            System.out.println();
+            //System.out.println();
         }
     }
 }

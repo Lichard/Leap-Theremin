@@ -51,7 +51,7 @@ void sendActiveOsc() {
     hand2.print();
   }
   catch(Exception e) {
-    println("Exception:" + e.getMessage()); //<>// //<>//
+    println("Exception:" + e.getMessage()); //<>// //<>// //<>// //<>//
     e.printStackTrace();
   }
 } 

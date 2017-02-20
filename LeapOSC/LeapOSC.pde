@@ -13,6 +13,7 @@ int handCount, fingerCount;
 int time=0;
 int oscFreq = 2; //how often to send OSC messages in millis
 boolean h1e, h2e;
+boolean sendOSCOnFist = false;
 
 void setup() {
   size( 200, 400 );

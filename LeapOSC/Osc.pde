@@ -1,4 +1,4 @@
-import oscP5.*;
+import oscP5.*; //<>//
 import netP5.*;
 
 String ipNumber = "127.0.0.1";
@@ -6,6 +6,7 @@ int sendPort = 7110;
 int receivePort = 33333;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
+
 
 void oscSetup() {
   oscP5 = new OscP5(this, receivePort);
@@ -31,27 +32,31 @@ void sendActiveOsc() {
     active.add(handCount);
     active.add(fingerCount);
 
-    hand1.add(h1.getX());
-    hand1.add(h1.getY());
-    hand1.add(h1.getZ());
-    hand1.add(f1);
+    if (sendOSCOnFist || f1>0) {
+      hand1.add(h1.getX());
+      hand1.add(h1.getY());
+      hand1.add(h1.getZ());
+      hand1.add(f1);
+    }
 
-    hand2.add(h2.getX());
-    hand2.add(h2.getY());
-    hand2.add(h2.getZ());
-    hand2.add(f2);
+  if (sendOSCOnFist || f2>0) {
+      hand2.add(h2.getX());
+      hand2.add(h2.getY());
+      hand2.add(h2.getZ());
+      hand2.add(f2);
+    }
 
     oscP5.send(active, myRemoteLocation);
-    if(h1e)
+    if (h1e)
       oscP5.send(hand1, myRemoteLocation);
-    if(h2e)
+    if (h2e)
       oscP5.send(hand2, myRemoteLocation);
     active.print();
     hand1.print();
     hand2.print();
   }
   catch(Exception e) {
-    println("Exception:" + e.getMessage()); //<>// //<>// //<>// //<>//
+    println("Exception:" + e.getMessage()); //<>// //<>// //<>//
     e.printStackTrace();
   }
 } 
